@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="import-packages" class="level1">
 <h1>Import Packages</h1>
 <p>I import the packages I will use for this analysis. I used osmnx to download data from Open Street Maps. Pandas and geopandas are used to manipulate and transform my data. Altair and matplotlib are used to create visualizations. Pygris is used for downloading the census block group boundaries for Philadelphia.</p>
-<div class="cell" data-execution_count="40">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pygris</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="41">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -239,14 +239,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-data-on-flood-plains" class="level1">
 <h1>Get Data on Flood Plains</h1>
 <p>I get the flood hazard boundary data from the city’s open data portal. The 100 year and 500 year flood plain are included as seperate layers. I perform some cleaning operations to both layers and then concatenate them together using the concat function in pandas.</p>
-<div class="cell" data-execution_count="42">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flood_plain_100_year <span class="op">=</span> gpd.read_file(<span class="st">'https://opendata.arcgis.com/datasets/1d6d353ab50b4884b586c05ee2a661db_0.geojson'</span>).to_crs(<span class="dv">6565</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>flood_plain_500_year <span class="op">=</span> gpd.read_file(<span class="st">'https://opendata.arcgis.com/datasets/1e6f6315225544c88549478d25cc5181_0.geojson'</span>).to_crs(<span class="dv">6565</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="43">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flood_plain_100_year.loc[flood_plain_100_year[<span class="st">'FLOODWAY'</span>] <span class="op">==</span> <span class="st">'FLOODWAY'</span>, [<span class="st">'ZONE'</span>]] <span class="op">=</span> <span class="st">'FLOODWAY'</span></span>
@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>flood_plain <span class="op">=</span> pd.concat([flood_plain_100_year,flood_plain_500_year])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="44">
+<div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>planning_districts <span class="op">=</span> gpd.read_file(<span class="st">'https://opendata.arcgis.com/datasets/0960ea0f38f44146bb562f2b212075aa_0.geojson'</span>).to_crs(<span class="dv">6565</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -267,102 +267,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Get Building Data</h1>
 <p>I carry out an analysis to determine the number of buildings that are located within the flood hazard zone. The building data is downloaded from open street maps using osmnx. The building data from OSM includes both polygons and points - in order to ensure that all the features in my buildings dataset are points I take the centroid of the building features.</p>
 <p>I then carry out a spatial join between the buildings and the boundaries of the flood hazard zone and create a new dataframe that only includes buildings whoose centroid is located in the flood hazard zone. I also use additional spatial joins to determine what planning district each building that is vulnerable to flooding is located in and the census block each building is located in.</p>
-<div class="cell" data-execution_count="45">
+<div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> ox.features_from_place(<span class="st">"Philadelphia, PA"</span>, {<span class="st">"building"</span>: <span class="va">True</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="46">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> buildings.to_crs(<span class="dv">6565</span>).reset_index()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>buildings[<span class="st">'geometry'</span>] <span class="op">=</span> buildings.geometry.centroid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="47">
+<div class="cell" data-tags="[]" data-execution_count="9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings.sjoin(flood_plain,how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>buildings_f.drop(<span class="st">'index_right'</span>,axis<span class="op">=</span><span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings_f.sjoin(planning_districts[[<span class="st">'DIST_NAME'</span>,<span class="st">'geometry'</span>]],how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>buildings_f.drop(<span class="st">'index_right'</span>,axis<span class="op">=</span><span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings_f.sjoin(philly_2020_block_groups[[<span class="st">'GEOID'</span>,<span class="st">'geometry'</span>]],how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>philly_2020_block_groups <span class="op">=</span> pygris.block_groups(state<span class="op">=</span><span class="st">'42'</span>, county<span class="op">=</span><span class="st">'101'</span>, year<span class="op">=</span><span class="dv">2020</span>).to_crs(<span class="dv">6565</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings.sjoin(flood_plain,how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>buildings_f.drop(<span class="st">'index_right'</span>,axis<span class="op">=</span><span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings_f.sjoin(planning_districts[[<span class="st">'DIST_NAME'</span>,<span class="st">'geometry'</span>]],how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>buildings_f.drop(<span class="st">'index_right'</span>,axis<span class="op">=</span><span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>buildings_f <span class="op">=</span> buildings_f.sjoin(philly_2020_block_groups[[<span class="st">'GEOID'</span>,<span class="st">'geometry'</span>]],how<span class="op">=</span><span class="st">'inner'</span>,predicate<span class="op">=</span><span class="st">'within'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="analysis-by-planning-district" class="level1">
 <h1>Analysis by Planning District</h1>
 <p>The code below counts the number of buildings in each planning district that are located within the flood hazard zone.</p>
-<div class="cell" data-execution_count="48">
+<div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pd_count <span class="op">=</span> buildings_f.groupby(<span class="st">'DIST_NAME'</span>)[[<span class="st">'osmid'</span>]].count()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pd_count.rename({<span class="st">'osmid'</span>:<span class="st">'count'</span>},inplace<span class="op">=</span><span class="va">True</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>planning_districts <span class="op">=</span> planning_districts[[<span class="st">'DIST_NAME'</span>,<span class="st">'geometry'</span>]].merge(pd_count,on<span class="op">=</span><span class="st">'DIST_NAME'</span>,how<span class="op">=</span><span class="st">'left'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pd_count <span class="op">=</span> buildings_f.groupby(<span class="st">'DIST_NAME'</span>)[[<span class="st">'osmid'</span>]].count()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pd_count.rename({<span class="st">'osmid'</span>:<span class="st">'count'</span>},inplace<span class="op">=</span><span class="va">True</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>planning_districts <span class="op">=</span> planning_districts[[<span class="st">'DIST_NAME'</span>,<span class="st">'geometry'</span>]].merge(pd_count,on<span class="op">=</span><span class="st">'DIST_NAME'</span>,how<span class="op">=</span><span class="st">'left'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The map below is created using matplotlib and shows the number of buildings in the flood zone by planning district. The planning district with the larger number of buildings in the flood zone is the Southwest planning zone.</p>
-<div class="cell" data-execution_count="49">
+<div class="cell" data-execution_count="12">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>planning_districts.plot(ax<span class="op">=</span>ax,column<span class="op">=</span><span class="st">"count"</span>,legend<span class="op">=</span><span class="va">True</span>,cmap<span class="op">=</span><span class="st">'OrRd'</span>,edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'# of Buildings in the Flood Hazard Zone by Planning District'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>planning_districts.plot(ax<span class="op">=</span>ax,column<span class="op">=</span><span class="st">"count"</span>,legend<span class="op">=</span><span class="va">True</span>,cmap<span class="op">=</span><span class="st">'OrRd'</span>,edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'# of Buildings in the Flood Hazard Zone by Planning District'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>Text(0.5, 1.0, '# of Buildings in the Flood Hazard Zone by Planning District')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="3-building-analysis_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<p><img src="3-building-analysis_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>The chart below is created using altair and provides another way of visulizing the number of buildings located within the flood hazard zone. The color in the chart indicates the number of buildings in the floodway, in the 100 year flood plain, and the number in the 500 year floodplain. We can again observe that the largest number of buildings in the flood hazard zone are located in the Lower Southwest Planning District.</p>
-<div class="cell" data-tags="[]" data-execution_count="50">
+<div class="cell" data-tags="[]" data-execution_count="13">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pd_count <span class="op">=</span> buildings_f.groupby([<span class="st">'DIST_NAME'</span>,<span class="st">'ZONE'</span>],as_index<span class="op">=</span><span class="va">False</span>)[[<span class="st">'osmid'</span>]].count()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pd_count.rename({<span class="st">'osmid'</span>:<span class="st">'count'</span>},inplace<span class="op">=</span><span class="va">True</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>domain1 <span class="op">=</span> [<span class="st">'FLOODWAY'</span>,<span class="st">'100 YEAR'</span>,<span class="st">'500 YEAR'</span>]</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>range2 <span class="op">=</span> [<span class="st">'red'</span>,<span class="st">'blue'</span>,<span class="st">'lightblue'</span>]</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>alt.Chart(pd_count).mark_bar().encode(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'DIST_NAME'</span>).title(<span class="st">'Planning District'</span>),</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'count'</span>).title(<span class="st">'Building Count'</span>),</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    alt.Color(<span class="st">'ZONE'</span>).scale(domain<span class="op">=</span>domain1, <span class="bu">range</span><span class="op">=</span>range2),</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'DIST_NAME'</span>,<span class="st">'count'</span>,<span class="st">'ZONE'</span>]</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>).properties(</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">550</span>,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">300</span>,</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Number of Buildings Located in Flood Hazard Zone by Planning District'</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pd_count <span class="op">=</span> buildings_f.groupby([<span class="st">'DIST_NAME'</span>,<span class="st">'ZONE'</span>],as_index<span class="op">=</span><span class="va">False</span>)[[<span class="st">'osmid'</span>]].count()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pd_count.rename({<span class="st">'osmid'</span>:<span class="st">'count'</span>},inplace<span class="op">=</span><span class="va">True</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>domain1 <span class="op">=</span> [<span class="st">'FLOODWAY'</span>,<span class="st">'100 YEAR'</span>,<span class="st">'500 YEAR'</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>range2 <span class="op">=</span> [<span class="st">'red'</span>,<span class="st">'blue'</span>,<span class="st">'lightblue'</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>alt.Chart(pd_count).mark_bar().encode(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'DIST_NAME'</span>).title(<span class="st">'Planning District'</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'count'</span>).title(<span class="st">'Building Count'</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    alt.Color(<span class="st">'ZONE'</span>).scale(domain<span class="op">=</span>domain1, <span class="bu">range</span><span class="op">=</span>range2),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'DIST_NAME'</span>,<span class="st">'count'</span>,<span class="st">'ZONE'</span>]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">550</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">300</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Number of Buildings Located in Flood Hazard Zone by Planning District'</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="13">
 
 <style>
-  #altair-viz-8dc437b12559475fb0ed7280186fdfa0.vega-embed {
+  #altair-viz-0966d4da227c4a4f879d986fa216bc9b.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-8dc437b12559475fb0ed7280186fdfa0.vega-embed details,
-  #altair-viz-8dc437b12559475fb0ed7280186fdfa0.vega-embed details summary {
+  #altair-viz-0966d4da227c4a4f879d986fa216bc9b.vega-embed details,
+  #altair-viz-0966d4da227c4a4f879d986fa216bc9b.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-8dc437b12559475fb0ed7280186fdfa0"></div>
+<div id="altair-viz-0966d4da227c4a4f879d986fa216bc9b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8dc437b12559475fb0ed7280186fdfa0") {
-      outputDiv = document.getElementById("altair-viz-8dc437b12559475fb0ed7280186fdfa0");
+    if (outputDiv.id !== "altair-viz-0966d4da227c4a4f879d986fa216bc9b") {
+      outputDiv = document.getElementById("altair-viz-0966d4da227c4a4f879d986fa216bc9b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
@@ -416,13 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="analysis-by-census-block-group" class="level1">
 <h1>Analysis by Census Block Group</h1>
 <p>The analysis below examine the number of buildings in each census block that are located within the flood hazard zone. Census blocks that contain a large number of buildings in the flood hazard zone are located in southwest Philadelphia, in Center City along the Schuylkill river, and near the Delaware river in Fishtown.</p>
-<div class="cell" data-execution_count="51">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>philly_2020_block_groups <span class="op">=</span> pygris.block_groups(state<span class="op">=</span><span class="st">'42'</span>, county<span class="op">=</span><span class="st">'101'</span>, year<span class="op">=</span><span class="dv">2020</span>).to_crs(<span class="dv">6565</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="52">
+<div class="cell" data-tags="[]" data-execution_count="14">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pd_count <span class="op">=</span> buildings_f.groupby(<span class="st">'GEOID'</span>)[[<span class="st">'osmid'</span>]].count()</span>
@@ -430,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>block_groups <span class="op">=</span> philly_2020_block_groups[[<span class="st">'GEOID'</span>,<span class="st">'geometry'</span>]].merge(pd_count,on<span class="op">=</span><span class="st">'GEOID'</span>,how<span class="op">=</span><span class="st">'left'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="53">
+<div class="cell" data-tags="[]" data-execution_count="15">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'# of Buildings in the Flood Hazard Zone by Block Group'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="53">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>Text(0.5, 1.0, '# of Buildings in the Flood Hazard Zone by Block Group')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
