@@ -1,34 +1,36 @@
 ---
-title: "MUSA 550 Final Project Template"
-subtitle: "An example website demonstrating the power of Quarto for sharing analyses on the web"
+title: "MUSA 5500 Final Project"
+subtitle: "Analyzing Vulnerability to Flooding in Philadelphia"
 ---
 
-## Welcome!
+## About My Project
 
-We can create beautiful websites that describe complex technical analyses in Python using [Quarto](https://quarto.org) 
-and deploy them online using [GitHub Pages](https://pages.github.com/). This combination of tools is a really powerful way 
-to create and share your work. This website is a demo that is meant to be used to create your own Quarto website for the 
-final project in MUSA 550. 
+This website was built to showcase my final project for MUSA 5500 - Geospatial Analysis in Python. 
 
-Quarto is a relatively new tool, but is becoming popular quickly. It's a successor 
-to the Rmarkdown ecosystem that combines functionality into a single tool and also extends its computation power to other
-languages. Most importantly for us, Quarto supports executing Python code, allowing us to convert Jupyter notebooks to HTML and share them online.  
+My project focuses on analyzing vulnerability to flooding in Philadelphia. The city of Philadelphia is built between two rivers, the Schuylkill, and the Delaware River, 
+and many neighborhoods in the city face a high vulnerability to flooding. This vulnerability is only going to increase due to climate change. Philadelphia's policies and 
+local development practices have not always followed best practices when it comes to flood plain management. Hundreds of city residents were left stranded at the 
+Apex Apartment building on Venice Island in Manayunk when the Schuykill river flooded its banks after the remnants of Hurricane Ida passed through the 
+Philadelphia metro area^1^. New construction is also taking place in the Navy Yard area, and the city recently allowed the construction of residential units in the
+Navy Yard despite the Navy Yard being one of the most flood prone neighborhoods in the city^2^. The Navy Yard plans to include steps to try to mitigate flooding, 
+but many including Josh Lippert the city’s former flood plain manager think the measures being taken are inadequate^2^. Residents of Clearview and Eastwick, 
+blue collar neighborhoods in Southwest Philadelphia, are also experiencing a rising risk of vulnerability to flooding due to sea level rise and 
+more frequent extreme weather events^3^. 
 
-::: {.callout-important}
-This template site, including the layout it uses, is just a suggested place to start! For your final project, you're welcome (and encouraged) to 
-make as many changes as you like to best fit your project.
-:::
+My project seeks to better understand who is vulnerable to flooding in Philadelphia. I examine the demographic breakdown of populations living in census blocks
+located near the flood hazard zone and see how the population living near the flood plain has changed over time. I attempted to determine if the population of ethnic
+minority groups living in the floodplain has increased. Additionally, I look to see if the demographic breakdown and trends vary across different geographic
+sections of the city.
 
-## Find out more
-
-The code for this repository is hosted on our course's GitHub page: [https://github.com/MUSA-550-Fall-2023/quarto-website-template](https://github.com/MUSA-550-Fall-2023/quarto-website-template).
-
-We covered the basics of getting started with Quarto and GitHub Pages in week 9. Take a look at
-[the slides for lecture 9A](https://musa-550-fall-2023.github.io/content/week-9/lecture-9A.html) to find out more.
-
-
+I also examine the amount of infrastructure located within the floodplain. In my analysis I count the number of infrastructure amenities located within the floodplain.
+Examples of infrastructure amenities include schools and restaurants. I also count the total number of buildings located within the floodplain, and look at the breakdown 
+by section of the city and if the buildings are located in the 100-year or 500-year floodplain. Results are presented by census block group and by planning district.
 
 
 
 
- 
+^1^  Adam Green and Bernard Brown, In Harm’s Way, GridPhilly, September 2023. [https://gridphilly.com/blog-home/2023/09/04/reckless-developments-put-residents-in-floods-path/](https://gridphilly.com/blog-home/2023/09/04/reckless-developments-put-residents-in-floods-path/)
+
+^2^ Sophia Schmidt, WHYY, Philadelphia, Thousands of people could live at the flood-prone Navy Yard. Will they be safe? July 19th, 2022 [https://whyy.org/articles/navy-yard-flood-prone-development/](https://whyy.org/articles/navy-yard-flood-prone-development/)
+
+^3^ John Hurdle, YaleEnvironment 360, Yale School of Environment, As Waters Rise, a Community Must Decide: Do We Stay or Go? [https://e360.yale.edu/features/chronic-flooding-eastwick-philadelphia](https://e360.yale.edu/features/chronic-flooding-eastwick-philadelphia)

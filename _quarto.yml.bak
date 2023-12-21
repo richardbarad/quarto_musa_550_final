@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: docs
+  preview:
+    port: 3333
+
+website:
+  title: "MUSA 550 Final Project"
+  site-url: "https://richardbarad.github.io/quarto_musa_550_final/" 
+  repo-url: "https://github.com/richardbarad/quarto_musa_550_final/"
+  repo-actions: [source]
+
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; cc-Richard Barad, 2023"
+
+  sidebar:
+    logo: "images/philly_map.jpg"
+    pinned: true
+    align: center  
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: Home
+      - section: analysis/index.qmd
+        contents:
+          - analysis/1-race-analysis.ipynb
+          - analysis/2-amenity-analysis.ipynb
+          - analysis/3-building-analysis.ipynb
+
+format:
+  html:
+    highlight-style: solarized
+    theme: cosmo
+    css: styles.css
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+
+
+

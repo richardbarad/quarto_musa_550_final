@@ -1,1 +1,1 @@
-Sitemap: https://musa-550-fall-2023.github.io/quarto-website-template/sitemap.xml
+Sitemap: https://richardbarad.github.io/quarto_musa_550_final/sitemap.xml

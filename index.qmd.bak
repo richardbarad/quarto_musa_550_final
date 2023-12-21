@@ -1,0 +1,36 @@
+---
+title: "MUSA 5500 Final Project"
+subtitle: "Analyzing Vulnerability to Flooding in Philadelphia"
+---
+
+## About My Project
+
+This website was built to showcase my final project for MUSA 5500 - Geospatial Analysis in Python. 
+
+My project focuses on analyzing vulnerability to flooding in Philadelphia. The city of Philadelphia is built between two rivers, the Schuylkill, and the Delaware River, 
+and many neighborhoods in the city face a high risk of vulnerability to flooding. This vulnerability is only going to increase due to climate change. Philadelphia's policies and 
+local development practices have not always followed best practices when it comes to flood plain management. Hundreds of city residents were left stranded at the 
+Apex Apartment building on Venice Island in Manayunk when the Schuykill river flooded its banks after the remnants of Hurricane Ida passed through the 
+Philadelphia metro area^1^. New construction is also taking place in the Navy Yard area, and the city recently allowed the construction of residential units 
+despite the Navy Yard being one of the most flood prone neighborhoods in the city^2^. The Navy Yard plans to include steps to try to mitigate flooding, 
+but many including Josh Lippert the city’s former flood plain manager think the measures being taken are inadequate^2^. Residents of Clearview and Eastwick, 
+blue collar neighborhoods in Southwest Philadelphia, are also experiencing a rising risk of vulnerability to flooding due to sea level rise and 
+more frequent extreme weather events^3^. 
+
+My project seeks to better understand who is vulnerable to flooding in Philadelphia. I examine the demographic breakdown of populations living in census blocks
+located near the flood plain and see how the population living near the flood plain has changed over time. I attempted to determine if the population of ethnic
+minority groups living in the floodplain has increased. Additionally, I look to see if the demographic breakdown and trends vary across different geographic
+sections of the city.
+
+I also examine the amount of infrastructure located within the floodplain. I atempt to determine the number of key infrastructure amenities located within the floodplain.
+Examples of infrastructure amenities include schools and apartment buildings. I also count the total number of buildings located within the floodplain, and look at the breakdown 
+by section of the city and if the buildings are located in the 100-year or 500-year floodplain.
+
+
+
+
+^1^  Adam Green and Bernard Brown, In Harm’s Way, GridPhilly, September 2023. [https://gridphilly.com/blog-home/2023/09/04/reckless-developments-put-residents-in-floods-path/](https://gridphilly.com/blog-home/2023/09/04/reckless-developments-put-residents-in-floods-path/)
+
+^2^ Sophia Schmidt, WHYY, Philadelphia, Thousands of people could live at the flood-prone Navy Yard. Will they be safe? July 19th, 2022 [https://whyy.org/articles/navy-yard-flood-prone-development/](https://whyy.org/articles/navy-yard-flood-prone-development/)
+
+^3^ John Hurdle, YaleEnvironment 360, Yale School of Environment, As Waters Rise, a Community Must Decide: Do We Stay or Go? [https://e360.yale.edu/features/chronic-flooding-eastwick-philadelphia](https://e360.yale.edu/features/chronic-flooding-eastwick-philadelphia)

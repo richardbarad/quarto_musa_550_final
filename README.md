@@ -1,7 +1,5 @@
 # Quarto website template
 
-A template repository to use as a starting point for a public website describing
-the analysis and results the course's final project. The website uses
-Quarto to generate content and GitHub Pages to host the website.
+This is a repository conts a website I built using Quarto to show case the results of my final python project for MUSA-550: Geospatial Data Science Using Python
 
-The published site for this example repository is available at: [https://musa-550-fall-2023.github.io/quarto-website-template/](https://musa-550-fall-2023.github.io/quarto-website-template/).
+The published site for this example repository is available at: [https://richardbarad.github.io/quarto_musa_550_final/](https://richardbarad.github.io/quarto_musa_550_final/).

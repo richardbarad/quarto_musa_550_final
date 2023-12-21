@@ -1,0 +1,26 @@
+---
+title: "About me"
+---
+
+<!-- Use a grid -->
+::: {.grid}
+
+<!-- Left column has a width of 4/12 and shows a picture of me -->
+::: {.g-col-4}
+![](images/rbarad-profile.jpg){width=3in}
+:::
+
+<!-- Text gets a column with width 8/12 -->
+::: {.g-col-8}
+
+Hello my name is Richard Barad, and I am student in the Master of Urban Spatial Analytics (MUSA) program at the University of Pennslyvania. 
+
+I prepared this website as part of my final project for MUSA 5500 - Geospatial Analysis in Python. This website was built using Quarto.
+
+
+::: 
+
+:::
+
+
+

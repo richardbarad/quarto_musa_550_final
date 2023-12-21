@@ -1,11 +1,10 @@
 # Analysis
 
-This section includes examples of technical analysis done using Jupyter notebooks.
-Each sub-section highlights different types of analyses and visualizations.
-In particular, it highlights that we can easily publish interactive visualizations
-produced with packages such as hvPlot, altair, or Folium, without losing
-any of the interactive features. 
+This section includes three analyses that I have completed as part of this final project. They are:
 
-On this page, you might want to share more introductory or background information about 
-the analyses to help guide the reader. 
+* An analysis of how the demographic breakdown of the population living in the floodplain, including a breakdown by neighboorhood
+* An analysis of amenities located within the floodplain
+* An analysis of buildings located within the floodplain
+
+
 

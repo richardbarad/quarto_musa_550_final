@@ -5,43 +5,32 @@ project:
     port: 3333
 
 website:
-  title: "MUSA 550 Quarto Template"
-  site-url: "https://musa-550-fall-2023.github.io/quarto-website-template" 
-  repo-url: https://github.com/MUSA-550-Fall-2023/quarto-website-template 
+  title: "MUSA 550 Final Project"
+  site-url: "https://richardbarad.github.io/quarto_musa_550_final/" 
+  repo-url: "https://github.com/richardbarad/quarto_musa_550_final/"
   repo-actions: [source]
 
   page-footer:
-    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    left: "&copy; CC-Nick Hand, 2023"
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; cc-Richard Barad, 2023"
 
   sidebar:
-    logo: "images/course-icon.png"
+    logo: "images/philly_map.jpg"
     pinned: true
-    align: center
-    tools: 
-      - icon: globe
-        href: https://nickhand.dev
-        text: "Personal Website"
-      - icon: github
-        href: https://github.com/MUSA-550-Fall-2023/
-        text: "MUSA 550 GitHub"
-      - icon: twitter
-        href: https://twitter.com/nicholashand
-        text: "Nick Hand Twitter"         
-
+    align: center  
     style: "docked"
     search: true
     collapse-level: 2
     contents:
       - href: index.qmd
-        text: Welcome
-      - about.qmd
+        text: Home
+      - href: about.qmd
+        text: About
       - section: analysis/index.qmd
         contents:
-          - analysis/1-python-code-blocks.qmd 
-          - analysis/2-static-images.ipynb
-          - analysis/3-altair-hvplot.ipynb
-          - analysis/4-folium.ipynb
+          - analysis/1-race-analysis.ipynb
+          - analysis/2-amenity-analysis.ipynb
+          - analysis/3-building-analysis.ipynb
 
 format:
   html:
